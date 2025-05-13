@@ -22,7 +22,14 @@ cat file.txt
 openssl enc -aes-256-ecb -pass pass:root123 -d -in file.txt -out file1.txt //U will get the text tht u hd typed intially in plain.txt as o/p
 
 1c) Using RSA encrypt “This is cyber security lab. BNMIT Bengaluru”
-
+openssl genrsa 1024 > key.pri 
+openssl rsa -in key.pri -out key.pub -pubout //writing RSA key
+gedit text.txt //type the text "This is cyber security lab.BNMIT Bangalore"
+openssl rsautl -encrypt -inkey key.pub -pubin -in text.txt -out Earth.enc 
+xxd Earth.enc //gives encrypted form
+opensssl rsautl -decrypt -inkey key.pri -in Earth.enc -out Earth.dec
+cat text.txt  //gives the text typed
+cat Earth.dec    //gives the decrypted text.
 
 2a) Demonstrate the usage of steganography tools for hiding text in an audio file.
 
@@ -118,6 +125,13 @@ sudo tcpdump icmp and host 192.168.1.2 -r icmppkt.pcap
 next open wireshark and click on the file like icon-5th icon and type the file name icmppkt.pcap
 
 3c) Demonstrate the use copy command by embedding two text files having your name in one text file and your USN in second text file into a image file.
+Create 2 text files as text1.txt and text2.txt
+Add contents to the files (in text1 -> your name and in text2 -> your usn) and compress them to a zip file named text.zip
+Download a jpeg image into the same folder
+Open commad prompt and type cd "Path to the location"
+Then type copy /B image.jpeg + text.zip new.jpeg
+Open the new image using winrar and check the contents
+
 
 4a) Demonstrate the key generation, encryption, and decryption procedure of the RSA algorithm using OpenSSL. Also demonstrate the encryption of a secret key using an RSA keypair.
 STEPS:
