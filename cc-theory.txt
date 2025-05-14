@@ -1,0 +1,902 @@
+Cybersecurity QnA – Full Compilation
+(Questions 1–80)
+1. Explain the different Data Privacy Attacks or Data Breaches
+Answer: Data privacy attacks and breaches refer to unauthorized access, disclosure, or
+misuse of personal or sensitive information. Common types include:
+• Phishing Attacks: Fraudulent attempts to obtain sensitive data by impersonating
+legitimate entities.
+• Malware: Software designed to infiltrate and gather data from systems.
+• Man-in-the-Middle (MitM) Attacks: Interception of communication between two
+parties to eavesdrop or modify data.
+• SQL Injection: Inserting malicious queries into input fields to access or alter
+database information.
+• Insider Threats: Employees or trusted individuals misusing their access to data.
+• Credential Stuffing: Using leaked credentials from one breach to access other
+accounts.
+2. Apply Vigenère Cipher: Encrypt "we are discovered save yourself" with keyword
+"deceptive"
+Answer: First, remove spaces: wearediscoveredsaveyourself Repeat keyword:
+deceptivedeceptivedeceptivedecept
+Apply the Vigenère Cipher:
+• w (22) + d (3) = z (25)
+• e (4) + e (4) = i (8)
+• a (0) + c (2) = c (2)
+• r (17) + e (4) = v (21)
+• e (4) + p (15) = t (19)
+• d (3) + t (19) = w (22)
+• i (8) + i (8) = q (16)
+• s (18) + v (21) = n (13) (after wrapping)
+• c (2) + e (4) = g (6)
+• o (14) + d (3) = r (17)
+• v (21) + e (4) = z (25)
+• e (4) + c (2) = g (6)
+• r (17) + e (4) = v (21)
+• e (4) + p (15) = t (19)
+• d (3) + t (19) = w (22)
+• s (18) + i (8) = a (0)
+• a (0) + v (21) = v (21)
+• v (21) + e (4) = z (25)
+• e (4) + d (3) = h (7)
+• y (24) + e (4) = c (2)
+• o (14) + c (2) = q (16)
+• u (20) + e (4) = y (24)
+• r (17) + p (15) = g (6)
+• s (18) + t (19) = l (11)
+• e (4) + i (8) = m (12)
+• l (11) + v (21) = g (6)
+• f (5) + e (4) = j (9)
+Ciphertext: zicvtwqngrzgvtwavzhcqygmlgj
+3. Explain Cyber Security Risk Management Process
+Answer: Cybersecurity Risk Management involves identifying, assessing, and mitigating
+security risks to protect systems and data. Steps include:
+1. Identify Assets and Threats: Determine what to protect and potential threats.
+2. 3. 4. 5. Risk Assessment: Analyze vulnerabilities and impact of potential attacks.
+Implement Controls: Apply safeguards such as firewalls, encryption, policies.
+Monitor and Review: Continuously observe for new threats and adjust controls.
+Respond and Recover: Have incident response and disaster recovery plans.
+4. Explain the different aspects of DFIR Framework
+Answer: DFIR stands for Digital Forensics and Incident Response. Its framework
+includes:
+• Identification: Detecting and acknowledging a potential incident.
+• Preservation: Safeguarding and documenting evidence.
+• Collection: Gathering data from systems, networks, and logs.
+• Examination: In-depth analysis to uncover patterns and indicators.
+• Analysis: Drawing conclusions about how, when, and why the breach occurred.
+• Containment: Isolating affected systems to prevent further damage.
+• Eradication: Removing malicious elements.
+• Recovery: Restoring systems to normal operation.
+• Reporting: Documenting findings for legal, compliance, or internal review.
+5. List and explain different types of Data Exfiltration
+Answer: Data exfiltration is the unauthorized transfer of data from a system. Types include:
+• Manual Transfer: Insider copying data to USB drives or external media.
+• Email-based Exfiltration: Sending confidential data via personal email accounts.
+• Cloud Storage Abuse: Uploading data to unauthorized cloud platforms.
+• Covert Channels: Using hidden methods like DNS tunneling to transmit data.
+• Malware-based Exfiltration: Malware that automatically gathers and transmits
+data.
+6. Explain the need of Security Policies in detail
+Answer: Security policies are essential to:
+• Establish Standards: Define acceptable behavior and configurations.
+• Reduce Risk: Prevent security incidents by enforcing controls.
+• Ensure Compliance: Meet legal and regulatory obligations.
+• Clarify Roles: Define responsibilities of employees and IT staff.
+• Facilitate Incident Response: Provide guidelines for reacting to security breaches.
+7. Explain DFIR Framework
+Answer: (Already covered in Question 4; reuse content if needed for repetition in exams)
+Refer to answer in Question 4.
+8. Analyse the Buffer Overflow Attack and Outline the Countermeasures
+Answer: Buffer Overflow Attack occurs when data exceeds the buffer’s storage capacity
+and overwrites adjacent memory.
+• Impact: It can cause crashes, arbitrary code execution, and privilege escalation.
+Countermeasures:
+• Bounds Checking: Validate data length before storage.
+• Canaries/Stack Guards: Use markers to detect overwritten buffers.
+• ASLR (Address Space Layout Randomization): Makes memory layout
+unpredictable.
+• DEP (Data Execution Prevention): Prevents execution of code in data regions.
+• Use Safe Libraries: Prefer functions like strncpy() over strcpy().
+9. Classify and explain different types of IDS
+Answer: IDS = Intrusion Detection System. Types include:
+• Network-based IDS (NIDS): Monitors network traffic for suspicious activity.
+• Host-based IDS (HIDS): Monitors a single host for changes in files, logs, or system
+calls.
+• Signature-based IDS: Detects known attack patterns (like antivirus).
+• Anomaly-based IDS: Uses behavioral baselines to detect unusual activity.
+10. Explain the laws related to data privacy and data protection
+Answer: Data privacy laws aim to protect personal data from misuse. Major laws include:
+• India: Digital Personal Data Protection Act, 2023 (DPDP Act)
+• EU: General Data Protection Regulation (GDPR)
+• USA: HIPAA (for health), CCPA (California), and others Key Provisions:
+• User consent before data collection
+• Right to access, correct, or delete data
+• Data minimization and purpose limitation
+• Penalties for data breaches or unauthorized use
+11. Model the RSA algorithm with all the steps involved with an example
+Answer: Steps:
+1. 2. 3. 4. 5. 6. 7. 8. Choose two primes: p = 3, q = 11
+Compute n = p × q = 33
+Compute φ(n) = (p−1)(q−1) = 2×10 = 20
+Choose e such that 1 < e < φ(n) and gcd(e, φ(n)) = 1; e = 7
+Compute d such that (d × e) mod φ(n) = 1; d = 3
+Public Key = (e, n) = (7, 33), Private Key = (d, n) = (3, 33)
+Encryption: Cipher = (M^e) mod n = (2^7) mod 33 = 128 mod 33 = 29
+Decryption: Message = (Cipher^d) mod n = (29^3) mod 33 = 24389 mod 33 = 2
+12. Explain Digital Forensics and its Process
+Answer: Digital forensics is the process of identifying, preserving, analyzing, and presenting
+digital evidence. Steps include:
+1. Identification: Recognizing potential evidence.
+2. Preservation: Isolating and securing data to prevent tampering.
+3. Collection: Acquiring relevant data from devices.
+4. Examination: Assessing data integrity and structure.
+5. Analysis: Interpreting findings to support legal/investigative outcomes.
+6. Presentation: Reporting results in an understandable format.
+13. Analyze 802.1X and 802.11i/WPA2 Network Security Protocols
+Answer:
+• 802.1X: A port-based access control protocol for LANs. Uses EAP for authentication
+and RADIUS for backend communication.
+• 802.11i (WPA2): Wireless security standard using AES-based CCMP encryption,
+robust key management, and mutual authentication.
+Comparison:
+• 802.1X enables dynamic key generation.
+• WPA2 ensures confidentiality and integrity in wireless networks.
+• Both improve authentication and prevent unauthorized access.
+14. Explain Cyberlaws with Respect to Indian Context
+Answer: Cyberlaws in India are governed by the Information Technology Act, 2000. Key
+aspects:
+• Legal recognition of electronic documents and signatures
+• Punishment for cybercrimes like hacking, identity theft, and data breaches
+• Regulation of intermediaries like ISPs and platforms
+• Latest update: Personal Data Protection Bill and Digital India Act (proposed)
+15. Solve using RSA: Encrypt “cat” where p = 11, q = 3
+Answer:
+1. 2. 3. p = 11, q = 3 → n = 33, φ(n) = 20
+Choose e = 3, find d = 7 (since 3×7 mod 20 = 1)
+ASCII for 'c' = 99, 'a' = 97, 't' = 116 → Encrypt each:
+o c: (99^3) mod 33 = 970299 mod 33 = 12
+o a: (97^3) mod 33 = 912673 mod 33 = 16
+o t: (116^3) mod 33 = 1560896 mod 33 = 25 Encrypted = [12, 16, 25]
+16. Apply Classical transposition cipher: Plaintext = "ENCRYPTION AND DECRYPTION
+TECHNIQUES", Key = 4 (Shift Cipher)
+Answer: Assuming it's a columnar transposition cipher with key = 4:
+Write plaintext in rows of 4:
+E N C R
+Y P T I
+O N A N
+D D E C
+R Y P T
+I O N T
+E C H N
+I Q U E
+S
+Read columns top-down:
+• Col 1: E Y O D R I E I S
+• Col 2: N P N D Y O C Q
+• Col 3: C T A E P N H U
+• Col 4: R I N C T T N E
+Ciphertext: EYODRIEISNPNDYOCQCTAEPNHURINCTTNE
+17. List and explain different functions of Firewalls
+Answer: Firewalls control data flow between trusted and untrusted networks. Functions
+include:
+• Packet Filtering: Filters traffic by IP, port, and protocol.
+• Stateful Inspection: Keeps track of active sessions.
+• Proxy Service: Intercepts all messages between client and server.
+• Network Address Translation (NAT): Hides internal IPs.
+• Content Filtering: Blocks access to restricted content.
+• Logging and Alerts: Records suspicious activity.
+18. List and explain different types of Security Testing
+Answer: Security testing ensures systems are free of vulnerabilities. Types:
+• Vulnerability Scanning: Automatic scan for known issues.
+• Penetration Testing: Simulated attack to find weak spots.
+• Security Auditing: Manual checks of policies/configs.
+• Ethical Hacking: Simulates hacker behavior.
+• Risk Assessment: Identify and rank risks.
+• Posture Assessment: Overall security review.
+19. Make use of a diagram and explain AES Encryption
+Answer: AES (Advanced Encryption Standard):
+• Block Size: 128 bits
+• Key Sizes: 128, 192, or 256 bits
+• Rounds: 10/12/14
+Steps:
+1. Key Expansion
+2. Initial Round: AddRoundKey
+3. Rounds:
+o SubBytes
+o ShiftRows
+o MixColumns
+o AddRoundKey
+4. Final Round: No MixColumns
+(Diagram: Use standard AES block diagram showing the above steps)
+20. Identify the Difference between Private key and Public key Cryptography. Explain
+any one crypto system.
+Answer:
+• Private Key Cryptography:
+o Uses one shared key
+o Fast but less secure for communication
+• Public Key Cryptography:
+o Uses a public/private key pair
+o More secure but computationally expensive
+Example – RSA:
+• Uses large prime numbers
+• Public key encrypts, private key decrypts
+• Based on modulus arithmetic
+21. Explain the importance of Cybersecurity
+Answer: Cybersecurity is vital for ensuring the confidentiality, integrity, and availability of
+information systems. Its importance lies in:
+• Protecting Personal and Business Data: Prevents identity theft, data breaches,
+and financial loss.
+• Maintaining Trust: Builds consumer and stakeholder trust in digital systems.
+• Ensuring Business Continuity: Minimizes downtime and disruptions.
+• Legal and Regulatory Compliance: Avoids penalties under laws like GDPR or
+DPDP.
+• Safeguarding National Infrastructure: Defends critical systems against espionage
+and cyberwarfare.
+22. Model the Digital Signatures and its Properties with diagram
+Answer: A digital signature is a cryptographic technique that ensures message authenticity
+and integrity.
+Steps:
+2. 3. 1. Sender hashes the message.
+The hash is encrypted with the sender's private key (creating the signature).
+Receiver decrypts the signature using the sender's public key and compares the
+hash.
+Properties:
+• Authentication: Verifies the sender.
+• Integrity: Detects message tampering.
+• Non-repudiation: Sender cannot deny authorship.
+(Diagram: Standard flow showing hashing, signing, and verification)
+23. Contrast DoS attacks and DDoS attacks. Explain the different types of DoS attacks.
+Answer:
+• DoS (Denial of Service): A single machine floods a system to exhaust resources.
+• DDoS (Distributed DoS): Multiple machines (botnet) flood the target
+simultaneously.
+Types of DoS attacks:
+• Volume-based: UDP floods, ICMP floods.
+• Protocol attacks: SYN floods, Ping of Death.
+• Application layer attacks: HTTP floods targeting specific app functions.
+24. Analyze Attack Surfaces of Set-UID Programs
+Answer: Set-UID programs run with the privileges of the file owner (often root). Attack
+surfaces include:
+• Input Validation Issues: Malicious inputs causing unexpected behavior.
+• Environment Variable Exploits: Manipulating PATH, LD_LIBRARY_PATH, etc.
+• Race Conditions: Exploiting time gaps between check and execution.
+• Buffer Overflows: Overwriting memory to execute arbitrary code.
+Mitigation: Input sanitization, privilege dropping, environment scrubbing, regular code
+audits.
+25. Classify and explain Honeypots depending on its functionality
+Answer: Honeypots are decoy systems used to attract attackers and study their behavior.
+By Functionality:
+• Production Honeypots: Deployed in real networks to detect threats early.
+• Research Honeypots: Used in labs to analyze and understand attack techniques.
+By Interaction Level:
+• Low Interaction: Simulates a limited set of services. Safer but less informative.
+• High Interaction: Full systems with real OS/services. Risky but provides deeper
+insights.
+Use cases: Malware collection, attacker profiling, early warning systems.
+26. Explain Cybersecurity and the different Types of Hackers
+Answer: Cybersecurity refers to the practice of protecting systems, networks, and data
+from digital attacks.
+Types of Hackers:
+• White Hat Hackers: Ethical hackers who test security systems.
+• Black Hat Hackers: Malicious attackers with criminal intent.
+• Grey Hat Hackers: May violate ethical standards but without malicious intent.
+• Script Kiddies: Inexperienced hackers using prebuilt tools.
+• Hacktivists: Politically motivated hackers.
+• State-sponsored Hackers: Operate under government directives.
+27. List and explain different types of Security Testing
+Answer:
+• Vulnerability Scanning: Identifies known vulnerabilities using automated tools.
+• Penetration Testing: Ethical hackers simulate attacks to find exploitable
+vulnerabilities.
+• Security Auditing: Systematic evaluation of security policies and procedures.
+• Risk Assessment: Identifies and evaluates security risks.
+• Ethical Hacking: Attempts to bypass system security to expose weaknesses.
+• Posture Assessment: Assesses the complete security posture of an organization.
+28. Identify different types of attacks on encrypted messages. Also explain
+cryptanalysis in detail.
+Answer: Attacks on Encrypted Messages:
+• Ciphertext-only Attack: Attacker has only encrypted data.
+• Known-plaintext Attack: Attacker knows some plaintext-ciphertext pairs.
+• Chosen-plaintext Attack: Attacker can encrypt chosen plaintexts.
+• Chosen-ciphertext Attack: Attacker can decrypt selected ciphertexts.
+Cryptanalysis: The art of decoding encrypted messages without access to the key. It
+involves techniques like:
+• Frequency analysis
+• Brute-force search
+• Differential and linear cryptanalysis
+• Side-channel attacks
+29. Explain the data privacy and data protection laws
+Answer: India: Digital Personal Data Protection Act (DPDP), 2023 EU: General Data
+Protection Regulation (GDPR) USA: HIPAA, CCPA, and other state-level laws
+Key Principles:
+• Informed consent
+• Right to access, correction, deletion
+• Data minimization and purpose limitation
+• Mandatory breach notification
+• Penalties for violations and non-compliance
+30. List Common Vulnerabilities with Software
+Answer:
+• Buffer Overflows: Writing beyond memory limits.
+• SQL Injection: Manipulating database queries.
+• Cross-site Scripting (XSS): Injecting malicious scripts.
+• Cross-site Request Forgery (CSRF): Exploiting session trust.
+• Broken Authentication: Weak login/session handling.
+• Insecure Deserialization: Leads to remote code execution.
+• Security Misconfiguration: Insecure default settings or unused features.
+31. Apply the row-columnar transposition cipher for “attack postponed until two am”
+given the key “5421376”.
+Answer: Step 1: Remove spaces from plaintext → attackpostponeduntiltwoam
+Step 2: Arrange in matrix (key length = 7):
+5 4 2 1 3 7 6
+---------------
+a t t a c k p
+o s t p o n e
+d u n t i l t
+w o a m x x x
+Step 3: Column order by numeric key → [4,3,2,1,5,7,6] → indices [3,2,1,0,4,6,5]
+Step 4: Read columns in key order:
+• Col 1 (1st): a p t x
+• Col 2 (2nd): t o n x
+• Col 3 (3rd): t t u a
+• Col 4 (4th): a s d w
+• Col 5 (5th): c o i x
+• Col 6 (6th): p e t x
+• Col 7 (7th): k n l x
+Ciphertext: aptxtonxttuasdwcoixpetxknlx
+32. List and explain Risks and Vulnerabilities with Environment variables and Set-
+UID programs.
+Answer: Risks:
+• Untrusted Input: Environment variables like PATH, LD_PRELOAD, and IFS can be
+manipulated.
+• Privilege Escalation: Set-UID programs with weak checks can allow attackers to
+gain root access.
+• Race Conditions: Temporary file creation can be hijacked.
+Vulnerabilities:
+• Unsafe use of system calls
+• Over-reliance on inherited environments
+• Lack of validation for external input
+Countermeasures:
+• Strip environment variables
+• Use safe APIs
+• Validate inputs strictly
+33. Identify the differences between symmetric and asymmetric key Encryption.
+Answer:
+Symmetric Key Encryption:
+• Uses the same key for encryption and decryption.
+• Faster and less computationally intensive.
+• Key distribution is a major challenge.
+• Example: AES, DES
+Asymmetric Key Encryption:
+• Uses a pair of keys: Public key (encryption), Private key (decryption).
+• Slower but more secure for key exchange.
+• Used in digital signatures and secure communications.
+• Example: RSA, ECC
+34. Explain cyberlaws with respect to the Indian Context.
+Answer:
+Cyberlaws in India are primarily governed by the Information Technology Act, 2000.
+Key Provisions:
+• Legal recognition of electronic documents and digital signatures.
+• Defines cybercrimes and prescribes penalties (e.g., hacking, identity theft).
+• Empowers authorities to regulate internet services and content.
+• Establishes Cyber Appellate Tribunal.
+• Supports e-commerce and electronic governance.
+Recent Updates:
+• Personal Data Protection Bill (in progress)
+• Digital India Act (proposed replacement for IT Act)
+35. Make use of Playfair cipher, find the encrypted message for “COMMUNICATE” with
+“COMPUTER” as the key.
+Answer:
+Step 1: Construct the 5x5 Playfair matrix using key "COMPUTER" (I=J):
+C O M P U
+T E R A B
+D F G H I
+K L N Q S
+V W X Y Z
+Step 2: Break plaintext "COMMUNICATE" into digraphs (pairs):
+CO, MM, UN, IC, AT, EX
+Adjust MM → MX MX to avoid repeating letter pair.
+Final digraphs: CO, MX, MX, UN, IC, AT, EX
+Step 3: Apply Playfair rules to each digraph:
+• CO → MO (same row → right letters)
+• MX → GC (rectangle → swap columns)
+• MX → GC
+• UN → PQ (same row)
+• IC → DG (rectangle)
+• AT → EB (rectangle)
+• EX → WG (rectangle)
+Ciphertext: MOGCGCPQDGEBWG
+36. Classify and explain different types of firewalls.
+Answer:
+Firewalls can be classified based on their functionality and placement.
+1. Packet-Filtering Firewalls:
+• Inspect incoming/outgoing packets.
+• Allow/block based on IP, port, protocol.
+2. Stateful Inspection Firewalls:
+• Monitor entire sessions.
+• Keep track of active connections.
+3. Proxy Firewalls (Application Layer):
+• Act as intermediaries.
+• Analyze application-level traffic (HTTP, FTP).
+4. Next-Generation Firewalls (NGFW):
+• Combine traditional firewall with intrusion prevention, deep packet inspection.
+5. Cloud Firewalls (Firewall-as-a-Service):
+• Deployed in cloud infrastructure.
+• Secure cloud-based resources.
+37. List the importance of security for OS.
+Answer:
+and attacks.
+Operating System (OS) security ensures that system resources are protected from misuse
+Importance:
+• User Data Protection: Prevents unauthorized access.
+• Process Isolation: Prevents one process from affecting another.
+• Resource Management: Controls access to hardware/software.
+• System Integrity: Protects core components from tampering.
+• Mitigating Malware: Blocks viruses, spyware, ransomware.
+• Audit and Logging: Helps in forensic and compliance efforts.
+38. Solve RSA algorithm by performing Encryption and Decryption using the
+following p=3, q=5, e=3, d=3, M=4
+Answer:
+Step 1: Compute n = p × q = 3 × 5 = 15
+Step 2: Compute φ(n) = (p-1)(q-1) = 2 × 4 = 8
+Step 3: Public key = (e=3, n=15), Private key = (d=3, n=15)
+Encryption:
+C = M^e mod n = 4^3 mod 15 = 64 mod 15 = 4
+Decryption:
+M = C^d mod n = 4^3 mod 15 = 64 mod 15 = 4
+Result: Encrypted = 4, Decrypted = 4 (same as input)
+39. Identify the difference and explain substitution and transposition ciphers with
+example.
+Answer:
+Substitution Cipher:
+• Each character in the plaintext is replaced with another character.
+• Example: Caesar Cipher (shift letters by 3)
+o Plaintext: ATTACK
+o Ciphertext: DWWDFN
+Transposition Cipher:
+• Rearranges the characters without changing them.
+• Example: Rail Fence Cipher
+o Plaintext: ATTACK
+o Rail 1: A T C
+o Rail 2: T A K
+o Ciphertext: ATCTAK
+40. Compare Intrusion Detection System and Intrusion Prevention Systems
+Answer:
+Feature IDS IPS
+Purpose Detect suspicious activity Detect and block threats
+Deployment Out-of-band Inline with traffic
+Response Alerts admin Blocks traffic in real-time
+System Impact Passive Active (can cause delays)
+Example Snort (IDS mode) Snort (IPS mode), Suricata
+41. Model Diffie-Hellman key exchange protocol.
+Answer:
+Steps:
+1. Both parties agree on a prime number p and base g (public).
+2. Alice selects a secret number a, computes A = g^a mod p and sends to Bob.
+3. Bob selects a secret number b, computes B = g^b mod p and sends to Alice.
+4. Alice computes shared secret S = B^a mod p.
+5. Bob computes shared secret S = A^b mod p.
+Result: Both derive the same shared key S without transmitting it directly.
+42. Identify the effect of a single-bit error in the ciphertext when using the CBC, ECB
+modes of operation?
+Answer:
+• ECB (Electronic Codebook):
+o Single-bit error affects only the corresponding block.
+o No error propagation.
+• CBC (Cipher Block Chaining):
+o Single-bit error affects the current and next block.
+o Due to chaining, error propagates partially.
+Conclusion: CBC offers better security but is more sensitive to errors.
+43. Identify and explain the steps associated with AES encryption.
+Answer:
+AES Encryption Steps:
+1. Key Expansion: Derive round keys from the main key.
+2. Initial Round:
+o AddRoundKey
+3. Rounds (9/11/13):
+o SubBytes
+o ShiftRows
+o MixColumns
+o AddRoundKey
+4. Final Round:
+o SubBytes
+o ShiftRows
+o AddRoundKey (no MixColumns)
+Total Rounds: 10 for 128-bit keys, 12 for 192-bit, 14 for 256-bit.
+44. Identify the services provided by cryptography.
+Answer:
+1. 2. 3. Confidentiality: Ensures only authorized users can access data.
+Integrity: Ensures data has not been altered.
+Authentication: Confirms identity of communicating parties.
+4. 5. Non-repudiation: Prevents denial of actions.
+Access Control: Restricts access to sensitive data.
+45. Make use of Playfair cryptographic system and find the ciphertext that Bob sends
+to Alice if he encrypt’s the message “instrumentsz” with the keyword “monarchy” by
+giving the rules.
+Answer:
+Step 1: Construct 5x5 Playfair Matrix with "monarchy":
+M O N A R
+C H Y B D
+E F G I K
+L P Q S T
+U V W X Z
+Step 2: Break plaintext "instrumentsz" into digraphs:
+IN ST RU ME NT SZ
+Step 3: Apply Playfair Rules:
+• IN → KO
+• ST → ZQ
+• RU → PM
+• ME → CL
+• NT → ZS
+• SZ → ZX
+Ciphertext: KOZQPMCLZSZX
+46. Identify the various steps that take place in AES key scheduling with proper steps.
+Answer:
+AES key scheduling generates round keys from the original cipher key.
+Steps:
+1. Initial Key Copy: Original key copied as the first part of expanded key.
+2. Key Expansion Loop:
+o Use previous 4-byte word to calculate next one.
+o Apply RotWord: Circular left shift of last word.
+o Apply SubWord: Substitute bytes using AES S-box.
+o XOR with round constant (Rcon).
+o XOR with word from 4 positions before.
+3. Repeat until full round keys are generated.
+Number of Rounds:
+• AES-128: 10 rounds (11 keys)
+• AES-192: 12 rounds (13 keys)
+• AES-256: 14 rounds (15 keys)
+47. Classify and explain firewalls depending on functionality.
+Answer:
+Firewalls by functionality:
+1. Packet Filtering Firewalls:
+o Examine headers of each packet.
+o Accept or reject based on rules.
+2. Stateful Inspection Firewalls:
+o Monitor connection state.
+o More secure than packet filtering.
+3. Application-Level Gateway (Proxy Firewalls):
+o Inspect application layer traffic.
+o Proxy between client and server.
+4. Circuit-Level Gateway:
+o Monitor TCP handshakes and sessions.
+o Does not inspect packet content.
+5. Next Generation Firewall (NGFW):
+o Combine multiple capabilities: DPI, IPS, malware filtering.
+48. Solve RSA algorithm by performing Encryption and Decryption using the
+following p=3, q=11, e=7, d=3, M=2.
+Answer:
+• Step 1: n = p × q = 3 × 11 = 33
+• Step 2: φ(n) = (p−1)(q−1) = 2 × 10 = 20
+• Step 3: Public key (e=7, n=33), Private key (d=3, n=33)
+Encryption:
+C = M^e mod n = 2^7 mod 33 = 128 mod 33 = 29
+Decryption:
+M = C^d mod n = 29^3 mod 33 = 24389 mod 33 = 2
+Result: Encrypted = 29, Decrypted = 2
+49. Analyse the Cross-site Scripting attack and outline the corresponding
+countermeasures.
+Answer:
+Cross-Site Scripting (XSS): Injects malicious scripts into trusted websites.
+Types:
+• Stored XSS: Payload stored on server (e.g., in DB).
+• Reflected XSS: Payload reflected via URL/query params.
+• DOM-based XSS: Script manipulates DOM directly in browser.
+Countermeasures:
+• Input sanitization and output encoding
+• Use secure frameworks (React, Angular)
+• Set Content Security Policy (CSP)
+• Validate headers and escape data
+50. Analyse 802.1X and 802.11i/WPA2 network security protocol.
+Answer:
+802.1X:
+• Port-based network access control.
+• Uses EAP (Extensible Authentication Protocol).
+• Common in enterprise networks.
+802.11i (WPA2):
+• Wireless security protocol.
+• Replaces WEP; uses AES-based CCMP encryption.
+• Provides authentication and confidentiality.
+Comparison:
+• 802.1X authenticates users before granting network access.
+• WPA2 encrypts data on wireless links.
+• Both ensure secure and authenticated communication.
+51. Explain Cyber Security Risk management process.
+Answer:
+Cybersecurity Risk Management includes:
+1. Asset Identification – Know what you’re protecting.
+2. Threat Assessment – Identify potential threats and attackers.
+3. Vulnerability Assessment – Analyze weaknesses.
+4. 5. 6. Impact Analysis – Evaluate consequences of a breach.
+Control Implementation – Apply security controls and policies.
+Monitoring & Review – Continuously evaluate and adjust.
+52. Identify the basic working principle of AES algorithm and explain its working with
+neat diagram.
+Answer:
+AES (Advanced Encryption Standard) is a symmetric block cipher.
+Working Principle:
+• Block size: 128 bits
+• Key sizes: 128, 192, or 256 bits
+• Uses multiple rounds of substitution, permutation, and mixing.
+Process:
+1. Key Expansion
+2. Initial Round: AddRoundKey
+3. Rounds:
+o SubBytes
+o ShiftRows
+o MixColumns
+o AddRoundKey
+4. Final Round: No MixColumns
+(Diagram can include matrix-based transformation visualization)
+53. Identify different transposition ciphers.
+Answer:
+Common transposition ciphers:
+• Rail Fence Cipher: Zig-zag writing pattern across rails.
+• Columnar Transposition: Rearranging columns based on key.
+• Double Transposition: Columnar applied twice.
+• Scytale Cipher: Uses cylinder for wrapping text.
+Property: Transposition ciphers maintain character identity but alter order.
+54. Classify and explain firewalls depending on functionality.
+Answer: (Duplicate of Q47)
+Refer to Question 47 for complete classification based on functionality.
+55. Identify the advantages of AES and the various steps that take place in AES key
+scheduling with proper steps.
+Answer:
+Advantages of AES:
+• Strong security with 128/192/256-bit keys
+• Efficient in hardware and software
+• Resistant to known attacks (e.g., brute force)
+• Standardized and widely adopted
+Key Scheduling Steps: (Already in Q46)
+• RotWord, SubWord, XOR with Rcon
+• Expand until all round keys are derived
+Refer to Q46 for full key scheduling steps.
+56. Differentiate between static and dynamic analysis in cybersecurity.
+Answer:
+• Static Analysis:
+o Examines code or binaries without execution.
+o Tools: Linters, SAST (Static Application Security Testing).
+o Detects issues like hardcoded passwords, insecure libraries.
+• Dynamic Analysis:
+o Tests code during execution.
+o Tools: DAST (Dynamic Application Security Testing), Fuzzers.
+o Detects runtime vulnerabilities like memory leaks, injection flaws.
+Comparison:
+Feature Static Analysis Dynamic Analysis
+Execution No Yes
+Speed Faster Slower
+Environment Source code Runtime
+Accuracy False positives possible Closer to real-world
+57. Model the Diffie-Hellman key exchange and explain with an example.
+Answer:
+Parameters: Prime p = 23, base g = 5
+Private Keys:
+• Alice: a = 4 → A = 5^4 mod 23 = 625 mod 23 = 4
+• Bob: b = 3 → B = 5^3 mod 23 = 125 mod 23 = 10
+Exchange:
+• Alice sends A = 4
+• Bob sends B = 10
+Shared Secret:
+• Alice computes: 10^4 mod 23 = 10000 mod 23 = 18
+• Bob computes: 4^3 mod 23 = 64 mod 23 = 18
+Shared Secret Key = 18
+58. Identify the effect of a single-bit error in the ciphertext when using the CBC, ECB
+modes of operation.
+Answer:
+• ECB Mode:
+• CBC Mode:
+o Error affects only the corresponding block.
+o No propagation; independent blocks.
+o Error affects current and next block.
+o Due to chaining, causes partial corruption.
+Conclusion: CBC mode provides better diffusion, but is more sensitive to bit errors.
+59. Identify and explain the steps associated with AES encryption.
+Answer:
+AES Encryption follows these main steps:
+1. Key Expansion: Generate round keys from original key.
+2. Initial Round:
+o AddRoundKey (XOR state with round key)
+3. Rounds (9/11/13 depending on key size):
+o SubBytes
+o ShiftRows
+o MixColumns
+o AddRoundKey
+4. Final Round:
+o SubBytes
+o ShiftRows
+o AddRoundKey (no MixColumns)
+Each step contributes to confusion and diffusion for secure encryption.
+60. Identify the services provided by cryptography.
+Answer:
+Cryptography provides the following core services:
+1. 2. 3. 4. 5. Confidentiality: Ensures information is accessible only to authorized users.
+Integrity: Ensures data has not been altered.
+Authentication: Verifies the identity of sender/receiver.
+Non-repudiation: Prevents entities from denying actions.
+Access Control: Enforces policy-based data access rights.
+61. Make use of Playfair cryptographic system and find the ciphertext that Bob sends
+to Alice if he encrypts the message “instrumentsz” with the keyword “monarchy” by
+giving the rules.
+Answer:
+Step 1: Create 5x5 Matrix (I = J):
+M O N A R
+C H Y B D
+E F G I K
+L P Q S T
+U V W X Z
+Step 2: Prepare Digraphs:
+Text: IN ST RU ME NT SZ
+Step 3: Encrypt Using Rules:
+• IN → KO
+• ST → ZQ
+• RU → PM
+• ME → CL
+• NT → ZS
+• SZ → ZX
+Ciphertext: KOZQPMCLZSZX
+62. Apply Ceaser Cipher on the Plaintext: meet me after the toga party, show
+encryption and decryption for the plain text.
+Answer:
+Plaintext: meet me after the toga party
+Key: Shift by 3
+Encryption:
+• Convert each letter by shifting 3 positions forward
+• Ciphertext: phhw ph diwhu wkh wrjd sduwb
+Decryption:
+• Shift 3 positions back
+• Plaintext restored: meet me after the toga party
+63. Model the basic cryptosystem by showing all the basic components in it and
+define cryptography.
+Answer:
+using encryption.
+Cryptography: Science of securing information by transforming it into unreadable format
+Basic Cryptosystem Components:
+1. Plaintext: Original message
+2. Encryption Algorithm: Converts plaintext to ciphertext
+3. Ciphertext: Encrypted message
+4. 5. Decryption Algorithm: Converts ciphertext back to plaintext
+Key: Used by both algorithms for transformation
+Diagram: [Plaintext → Encryption (Key) → Ciphertext → Decryption (Key) → Plaintext]
+64. Examine Buffer overflow and Countermeasures.
+Answer:
+Buffer Overflow: Occurs when data exceeds memory buffer, overwriting adjacent memory.
+Exploitation:
+• Attackers overwrite return addresses or control data to inject malicious code.
+Countermeasures:
+• Bounds checking
+• Stack canaries
+• Address Space Layout Randomization (ASLR)
+• Use of memory-safe languages (e.g., Rust)
+• Avoid unsafe functions (e.g., gets(), strcpy())
+65. Make use of Rail-fence cryptographic system and find the ciphertext that Bob
+sends to Alice if he encrypts the message “tell him about me” with key = 2.
+Answer:
+Plaintext (spaces removed): tellhimaboutme → 14 letters
+Rail 1: t l h m b u m
+Rail 2: e l i a o t e
+Ciphertext (Rail 1 + Rail 2): tlhmbume liao te → tlhmbumeliaote
+66. Write a short note on stream cipher and block cipher.
+Answer:
+Stream Cipher:
+• Encrypts data one bit or byte at a time.
+• Faster and suitable for real-time applications.
+• Example: RC4
+Block Cipher:
+• Encrypts data in fixed-size blocks (e.g., 128 bits).
+• More secure and commonly used in file encryption.
+• Example: AES, DES
+Comparison:
+Feature Stream Cipher Block Cipher
+Processing Bit/byte-wise Block-wise
+Speed Faster Slower
+Error Propagation Limited May affect full block
+67. Identify the differences between classical and modern cryptographic techniques.
+Answer:
+Feature Classical Cryptography Modern Cryptography
+Key Type Symmetric only Symmetric and Asymmetric
+Algorithms Substitution, Transposition AES, RSA, ECC
+Structure Simple Complex and mathematically intensive
+Security Level Lower High
+Data Format Text Binary
+68. Write short notes on Cipher text only attack and chosen plaintext attack.
+Answer:
+• Ciphertext-Only Attack (COA):
+o Attacker has only access to encrypted text.
+o Must deduce both plaintext and key.
+o Example: Frequency analysis in substitution cipher.
+• Chosen-Plaintext Attack (CPA):
+o Attacker can encrypt arbitrary plaintexts.
+o Observes ciphertexts to find patterns or keys.
+o Example: RSA vulnerabilities when low exponent is used.
+69. Explain substitution and transposition techniques.
+Answer:
+• Substitution:
+o Replaces each element with another (e.g., Caesar Cipher).
+o Example: A → D, B → E, etc.
+• Transposition:
+o Rearranges order of characters.
+o Example: Columnar Transposition
+▪ HELLO → HLOEL (via reordering columns)
+70. Demonstrate simple RSA encryption and decryption with example.
+Answer:
+Let p = 3, q = 11, e = 7, M = 5
+• Compute n = p × q = 3 × 11 = 33
+• φ(n) = (p−1)(q−1) = 2 × 10 = 20
+• Choose e = 7, compute d such that (d × e) mod 20 = 1 → d = 3
+Public Key: (7, 33)
+Private Key: (3, 33)
+Encryption:
+C = M^e mod n = 5^7 mod 33 = 78125 mod 33 = 20
+Decryption:
+M = C^d mod n = 20^3 mod 33 = 8000 mod 33 = 5
+71. Identify and explain the steps associated with AES encryption.
+Answer:
+Refer to Question 59 for full breakdown. Summary:
+1. Key Expansion
+2. Initial Round: AddRoundKey
+3. Rounds (based on key size): SubBytes, ShiftRows, MixColumns, AddRoundKey
+4. Final Round: SubBytes, ShiftRows, AddRoundKey
+72. Identify the services provided by cryptography.
+Answer:
+Refer to Question 60. Summary:
+1. Confidentiality
+2. Integrity
+3. Authentication
+4. Non-repudiation
+5. Access Control
+73. Make use of Playfair cryptographic system and find the ciphertext that Bob sends
+to Alice if he encrypt’s the message “instrumentsz” with the keyword “monarchy” by
+giving the rules.
+Answer:
+Already answered in Question 61:
+• Matrix: MONARCHY...
+• Digraphs: IN ST RU ME NT SZ
+• Ciphertext: KOZQPMCLZSZX
+74. Apply Caesar Cipher on the Plaintext: meet me after the toga party, show
+encryption and decryption.
+Answer:
+Refer to Question 62:
+• Key: Shift 3
+• Encrypted: phhw ph diwhu wkh wrjd sduwb
+• Decrypted: meet me after the toga party
+75. Model the basic cryptosystem by showing all the basic components in it and
+define cryptography.
+Answer:
+Refer to Question 63:
+• Components: Plaintext, Encryption, Ciphertext, Decryption, Key
+• Cryptography is the practice of securing data through encoding.
+76. Examine Buffer overflow and Countermeasures.
+Answer:
+Refer to Question 64:
+• Causes: Exceeding buffer size
+• Risks: Code injection, crashing
+• Prevention: Bounds checks, safe APIs, ASLR, canaries
+77. Make use of Rail-fence cryptographic system and find the ciphertext that Bob
+sends to Alice if he encrypts the message “tell him about me” with key =2.
+Answer:
+Refer to Question 65:
+• Message → tellhimaboutme
+• Rails: 2
+• Ciphertext: tlhmbumeliaote
+78. Explain the importance of cyber security by defining it.
+Answer:
+Cybersecurity: Protection of systems and data from digital threats.
+Importance:
+• Safeguards privacy
+• Prevents data breaches and theft
+• Ensures business continuity
+• Supports national and economic stability
+• Maintains trust in digital services
+79. List various wireless security issues.
+Answer:
+• Unauthorized access (open Wi-Fi)
+• Eavesdropping and sniffing
+• Man-in-the-middle (MitM) attacks
+• Rogue access points
+• Weak encryption (e.g., WEP)
+• Session hijacking
+• Denial-of-Service (DoS)
+80. List the importance of security for OS.
+Answer:
+Already answered in Question 37:
+• Protects user data and system integrity
+• Ensures secure multi-user access
+• Prevents malware and unauthorized access
+• Maintains logs and audits for compliance
